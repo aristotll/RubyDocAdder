@@ -18,7 +18,7 @@ Shortcuts:
 
 ---
 
-![Example:][https://raw.githubusercontent.com/aristotll/RubyDocAdder/master/rdoc-adder.gif]
+![example]( https://raw.githubusercontent.com/aristotll/RubyDocAdder/master/rdoc-adder.gif )
 
 ---
 
