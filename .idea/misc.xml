@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FlexCompilerConfiguration">
+    <option name="USE_BUILT_IN_COMPILER" value="false" />
+    <option name="USE_MXMLC_COMPC" value="true" />
+    <option name="PREFER_ASC_20" value="false" />
+  </component>
+  <component name="HaskellBuildOptions">
+    <ghcPath>/usr/local/bin/ghc</ghcPath>
+    <cabalPath>/usr/local/bin/cabal</cabalPath>
+    <stackPath>/usr/local/bin/stack</stackPath>
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES5" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="IntelliJ IDEA IU-162.2228.15 (1)" project-jdk-type="IDEA JDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="deltaUtilsSettings">
+    <option name="settings">
+      <list>
+        <BrowsePattern>
+          <option name="icon" value="GOOGLE" />
+          <option name="label" value="Search with Google" />
+          <option name="pattern" value="http://www.google.com/search?q={selection}" />
+        </BrowsePattern>
+        <BrowsePattern>
+          <option name="icon" value="SEARCH CODE" />
+          <option name="label" value="Search code" />
+          <option name="pattern" value="http://code.google.com/intl/en/query/#q={selection}" />
+        </BrowsePattern>
+        <BrowsePattern>
+          <option name="enabled" value="false" />
+          <option name="icon" value="TRANSLATE" />
+          <option name="label" value="Translate with Google" />
+          <option name="pattern" value="http://translate.google.com/#auto/en/{selection}" />
+        </BrowsePattern>
+      </list>
+    </option>
+  </component>
+</project>

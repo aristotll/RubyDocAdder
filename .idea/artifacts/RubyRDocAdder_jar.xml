@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="RubyRDocAdder:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RubyRDocAdder_jar</output-path>
+    <root id="archive" name="RubyRDocAdder.jar">
+      <element id="module-output" name="RubyRDocAdder" />
+    </root>
+  </artifact>
+</component>
