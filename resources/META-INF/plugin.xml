@@ -1,19 +1,38 @@
 <idea-plugin>
     <id>me.aristotll.ruby.rdoc.adder</id>
     <name>ruby-doc-adder</name>
-    <version>0.01</version>
+    <version>0.02</version>
     <vendor email="aristotll.good@gmail.com">aristotll</vendor>
     <description><![CDATA[
-<p>Add document comments to Ruby functions in Intellij or RubyMine</p>
+<p>Add document comments to Ruby functions in Intellij or RubyMine.</p>
 <p>see <a href="https://www.jetbrains.com/help/ruby/documenting-source-code-in-rubymine.html">https://www.jetbrains.com/help/ruby/documenting-source-code-in-rubymine.html</a> for more info.</p>
 <div class="hr"null>&nbsp;</div>
-<p>Move cursor to the element, and press the shortcut to add the Ruby doc comments.</p>
+<p>Move cursor to the function name, and press the shortcut to add the Ruby doc comments.</p>
 <p>Shortcuts:</p>
 <ul>
   <li><code>ctrl + shift + P</code> in Windows and Linux</li>
   <li><code>⌘ + ⇧ + P</code> (command shift P) in Mac os</li>
 </ul>
-        ]]></description>
+<div class="hr"null>&nbsp;</div>
+<p><img src="https://raw.githubusercontent.com/aristotll/rubydocadder/master/rdoc-adder.gif" alt="Example:" /></p>
+<div class="hr"null>&nbsp;</div>
+<p>Before</p>
+<pre><code class="ruby">def encode!(test, num = 1, *several_variants, **new)
+  ''
+end
+</code></pre>
+<p>After</p>
+<pre><code># @param [Object]  test
+# @param [Fixnum]  num
+# @param [Array]  several_variants
+# @param [Hash]  new
+# @return [String]
+def encode!(test, num = 1, *several_variants, **new)
+  ''
+end
+
+</code></pre>
+</div>        ]]></description>
 
     <change-notes><![CDATA[
 first release    ]]>
