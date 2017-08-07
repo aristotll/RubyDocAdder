@@ -14,3 +14,29 @@ Shortcuts:
 
 -  `ctrl + shift + P` in Windows and Linux
 -  `⌘  + ⇧ + P` (command shift P) in Mac os
+
+
+---
+
+
+---
+
+Before
+```ruby
+def encode!(test, num = 1, *several_variants, **new)
+  ''
+end
+```
+
+After
+```
+# @param [Object]  test
+# @param [Object]  num
+# @param [Object]  several_variants
+# @param [Object]  new
+# @return [String]
+def encode!(test, num = 1, *several_variants, **new)
+  ''
+end
+
+```
