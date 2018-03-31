@@ -32,7 +32,6 @@ import org.jetbrains.plugins.ruby.ruby.lang.psi.variables.fields.RClassVariable
 import org.jetbrains.plugins.ruby.ruby.lang.psi.variables.fields.RField
 import org.jetbrains.plugins.ruby.ruby.lang.psi.variables.fields.RInstanceVariable
 
-
 @CompileStatic
 class NewRubyHelpUtil {
     public static final String MULTIPLE_SYMBOLS_FOUND = '\0'
@@ -95,7 +94,7 @@ class NewRubyHelpUtil {
     @Nullable
     @CompileDynamic
     static RType getInferredMethodType(final RMethod method) {
-        RubyHelpUtil.getInferredMethodType(method);
+        RubyHelpUtil.getInferredMethodType(method)
     }
 
 
@@ -135,7 +134,7 @@ class NewRubyHelpUtil {
         if (helpForSymbol != null && helpForSymbol != MULTIPLE_SYMBOLS_FOUND) {
             return helpForSymbol
         }
-        return getDescriptionWithoutSymbol((RPsiElement) resolveElements[0])
+        return null
     }
 
 
