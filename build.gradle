@@ -53,7 +53,9 @@ intellij {
 //    version ideVersion
     // name convention https://github.com/JetBrains/gradle-intellij-plugin#setup-dsl
     plugins = [// https://plugins.jetbrains.com/plugin/1293-ruby/update/44560
-               'org.jetbrains.plugins.ruby:2018.1.20180327'
+               'org.jetbrains.plugins.ruby:2018.1.20180327',
+               // I like ideavim key mapping ...
+               'IdeaVIM:0.49'
     ]
     updateSinceUntilBuild = false
     instrumentCode = false
@@ -62,6 +64,18 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      move to gradle
+        upgrade to 2018.1
       """
+    version '0.0.3'
+}
+// https://stackoverflow.com/a/33889971/4680436
+sourceSets {
+    main {
+        java { srcDirs = [] }    // no source dirs for the java compiler
+        groovy { srcDirs = ["src/main/java", "src/main/groovy"] }  // compile everything in src/ with groovy
+    }
+}
+
+jar {
+    exclude('rebel.xml','*.rb')
 }

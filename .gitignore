@@ -129,3 +129,4 @@ build-iPhoneSimulator/
 !/lib/live-plugin-0.5.7 beta.jar
 /.idea/markdown-navigator/
 /.idea/
+/src/main/resources/rebel.xml

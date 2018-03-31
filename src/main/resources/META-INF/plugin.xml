@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>me.aristotll.ruby.rdoc.adder</id>
     <name>ruby-doc-adder</name>
-    <version>0.02</version>
+    <version>0.03</version>
     <vendor email="aristotll.good@gmail.com">aristotll</vendor>
     <description><![CDATA[
 <p>Add document comments to Ruby functions in Intellij or RubyMine.</p>
@@ -39,12 +39,12 @@ first release    ]]>
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="145.0"/>
+    <idea-version since-build="181"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
-    <depends optional="false">com.intellij.modules.ultimate</depends>
+    <depends optional="true">com.intellij.modules.ultimate</depends>
     <depends optional="true">org.jetbrains.plugins.ruby</depends>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -54,6 +54,11 @@ first release    ]]>
         <action id="LPRDocAdder" class="me.aristotll.RDocAdderAction" text="Add rdoc to Ruby functions">
             <add-to-group group-id="ToolsBasicGroup" anchor="last"/>
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift P"/>
+        </action>
+        <!--ctrl enter in mac to show generate group-->
+        <action class="me.aristotll.RDocAdderAction" id="me.aristotll.ruby.rdoc.adder.addDoc"
+                text="Add rdoc to Ruby functions">
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
         </action>
     </actions>
 
