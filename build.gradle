@@ -44,15 +44,21 @@ compileTestKotlin {
 }
 intellij {
     // (to find available IDE versions see https://www.jetbrains.com/intellij-repository/releases)
-//	def ideVersion = System.getenv().getOrDefault("PLUGIN_IDEA_VERSION", "IU-172.3757.29")
-//    def ideVersion = System.getenv().getOrDefault("PLUGIN_IDEA_VERSION", "181.2784.17")
-    def ideVersion = System.getenv().getOrDefault("PLUGIN_IDEA_VERSION", "IU-181.2784.17")
+//	 "IU-172.3757.29"
+//    def version = "181.2784.17"
+    def theVersionToUse = 'IU-2018.1'
+    def ideVersion = System.getenv().getOrDefault("PLUGIN_IDEA_VERSION", theVersionToUse)
     println("Using ide version: ${ideVersion}")
-    version ideVersion
+    // be aware of possible name collision
+//    version ideVersion
     // name convention https://github.com/JetBrains/gradle-intellij-plugin#setup-dsl
     plugins = [// https://plugins.jetbrains.com/plugin/1293-ruby/update/44560
-               'org.jetbrains.plugins.ruby:2018.1.20180112'
+               'org.jetbrains.plugins.ruby:2018.1.20180327'
     ]
+    updateSinceUntilBuild = false
+    instrumentCode = false
+    // local path and version should be used at same time
+    localPath = '/Applications/IntelliJ IDEA.app'
 }
 patchPluginXml {
     changeNotes """

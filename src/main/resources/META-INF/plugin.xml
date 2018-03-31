@@ -44,11 +44,10 @@ first release    ]]>
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
-    <!--<depends>LivePlugin</depends>-->
+    <depends optional="false">com.intellij.modules.ultimate</depends>
     <depends optional="true">org.jetbrains.plugins.ruby</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
     </extensions>
 
     <actions>
