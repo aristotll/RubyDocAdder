@@ -31,13 +31,14 @@ class RDocAdderAction extends AnAction {
         RMethod method = PsiTreeUtil.getParentOfType(element, RMethod.class);
         def s = ''
         if ((method != null)) {
+            def space = method.textOffset
             method.argumentInfos
             method.arguments.each {
 
                 def name = it.name
                 it = it.children.first() as RPsiElement
                 def byElement = NewRubyHelpUtil.getHelpByElement(it, it)
-                s += byElement + " $name \n"
+                s += (" " * space) + byElement + " $name \n"
             }
             s += NewRubyHelpUtil.getHelpByElement(method, method)
 
