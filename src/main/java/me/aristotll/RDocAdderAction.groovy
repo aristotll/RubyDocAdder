@@ -24,11 +24,11 @@ class RDocAdderAction extends AnAction {
         def project = anActionEvent.project
 
         def editor = currentEditorIn(project)
-        def caretModel = editor.getCaretModel()
-        int offset = caretModel.getOffset();
+        def caretModel = editor.caretModel
+        int offset = caretModel.offset
         def psiFile = currentPsiFileIn(project)
-        PsiElement element = psiFile.findElementAt(offset);
-        RMethod method = PsiTreeUtil.getParentOfType(element, RMethod.class);
+        PsiElement element = psiFile.findElementAt(offset)
+        RMethod method = PsiTreeUtil.getParentOfType(element, RMethod)
         def s = ''
         if ((method != null)) {
             def space = method.textOffset

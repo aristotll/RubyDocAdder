@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RubyRDocAdder.iml" filepath="$PROJECT_DIR$/RubyRDocAdder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RubyRDocAdder.iml" filepath="$PROJECT_DIR$/.idea/modules/RubyRDocAdder.iml" />
     </modules>
   </component>
 </project>

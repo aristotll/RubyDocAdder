@@ -128,3 +128,4 @@ build-iPhoneSimulator/
 /.idea/composerJson.xml
 !/lib/live-plugin-0.5.7 beta.jar
 /.idea/markdown-navigator/
+/.idea/
