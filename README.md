@@ -1,6 +1,8 @@
 # README
 ---
 
+[![Build Status](https://travis-ci.org/aristotll/RubyDocAdder.svg?branch=master)](https://travis-ci.org/aristotll/RubyDocAdder)
+
 Add document comments to Ruby functions in Intellij or RubyMine.
 
 see https://www.jetbrains.com/help/ruby/documenting-source-code-in-rubymine.html for more info.
