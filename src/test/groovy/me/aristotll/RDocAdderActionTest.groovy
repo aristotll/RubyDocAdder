@@ -4,6 +4,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.ShortcutSet
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import org.junit.Test
 import org.junit.Before
@@ -33,6 +34,13 @@ class RDocAdderActionTest extends Specification {
         then:
         //noinspection GroovyPointlessArithmetic
         0 * RDocAdderAction.docFromMethod
+    }
+
+    void 'when editor is null'() {
+        given:
+        AnActionEvent event = Mock()
+        Project project = Mock()
+        event.project >> project
     }
 }
 
