@@ -93,6 +93,10 @@ sourceSets {
         java { srcDirs = [] }    // no source dirs for the java compiler
         groovy { srcDirs = ["src/main/java", "src/main/groovy"] }  // compile everything in src/ with groovy
     }
+    test {
+        java { srcDirs = [] }
+        groovy { srcDirs = ["src/test/java", "src/test/groovy"] }
+    }
 }
 
 jar {
