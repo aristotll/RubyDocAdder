@@ -22,25 +22,32 @@ class RDocAdderAction extends AnAction {
     @Override
     void actionPerformed(AnActionEvent anActionEvent) {
         def project = anActionEvent.project
-
+        if (project == null) {
+            return
+        }
         def editor = currentEditorIn(project)
+        if (editor == null) {
+            return
+        }
         def caretModel = editor.caretModel
         int offset = caretModel.offset
         def psiFile = currentPsiFileIn(project)
+        if (psiFile == null) {
+            return
+        }
         PsiElement element = psiFile.findElementAt(offset)
         RMethod method = PsiTreeUtil.getParentOfType(element, RMethod)
-        def s = ''
         if ((method != null)) {
+            def s = new StringBuilder()
             def space = method.textOffset
             method.argumentInfos
             method.arguments.each {
 
                 def name = it.name
-                it = it.children.first() as RPsiElement
-                def byElement = RubyDocUtil.getDocOfElement(it)
-                s += (" " * space) + byElement + " $name \n"
+                def byElement = RubyDocUtil.getDocOfElement(it.children.first() as RPsiElement)
+                s << (" " * space) + byElement + " $name \n"
             }
-            s += RubyDocUtil.getDocOfElement(method)
+            s << RubyDocUtil.getDocOfElement(method)
 
             def currentLine = caretModel.logicalPosition.line
             def document = editor.document
