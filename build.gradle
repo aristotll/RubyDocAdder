@@ -39,7 +39,8 @@ dependencies {
     // optional dependencies for using Spock
     testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
     testRuntime "net.bytebuddy:byte-buddy:1.6.5"          // allows mocking of classes (in addition to interfaces)
-    testRuntime "org.objenesis:objenesis:2.5.1"    // allows mocking of classes without default constructor (together with CGLIB)
+    testRuntime "org.objenesis:objenesis:2.5.1"
+    // allows mocking of classes without default constructor (together with CGLIB)
 
 }
 
@@ -50,24 +51,36 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 intellij {
-    // (to find available IDE versions see https://www.jetbrains.com/intellij-repository/releases)
+    def env = System.getenv()
+    def isCi = Boolean.valueOf(env.getOrDefault('IS_CI_MODE', 'false'))
+    downloadSources = !isCi
+    println "isCi: $isCi"
+    if (isCi) {
+        // (to find available IDE versions see https://www.jetbrains.com/intellij-repository/releases)
 //	 "IU-172.3757.29"
 //    def version = "181.2784.17"
-    def theVersionToUse = 'IU-2018.1'
-    def ideVersion = System.getenv().getOrDefault("PLUGIN_IDEA_VERSION", theVersionToUse)
-    println("Using ide version: ${ideVersion}")
-    // be aware of possible name collision
-//    version ideVersion
+        def theVersionToUse = 'IU-2018.1'
+        def ideVersion = env.getOrDefault("PLUGIN_IDEA_VERSION", theVersionToUse)
+        println("Using ide version: ${ideVersion}")
+        // be aware of possible name collision in closure
+        version ideVersion
+    } else {
+        // local path and version should not be used at same time
+        localPath = '/Applications/IntelliJ IDEA.app'
+    }
     // name convention https://github.com/JetBrains/gradle-intellij-plugin#setup-dsl
-    plugins = [// https://plugins.jetbrains.com/plugin/1293-ruby/update/44560
-               'org.jetbrains.plugins.ruby:2018.1.20180327',
-               // I like ideavim key mapping ...
-               'IdeaVIM:0.49'
+    def listOfPlugins = [// https://plugins.jetbrains.com/plugin/1293-ruby/update/44560
+                         'org.jetbrains.plugins.ruby:2018.1.20180327',
     ]
+    if (!isCi) {
+        println 'add idea vim in dev'
+        // I like ideavim key mapping ...
+        listOfPlugins.add 'IdeaVIM:0.49'
+
+    }
+    plugins = listOfPlugins
     updateSinceUntilBuild = false
-    instrumentCode = false
-    // local path and version should not be used at same time
-    localPath = '/Applications/IntelliJ IDEA.app'
+    instrumentCode = isCi
 }
 patchPluginXml {
     changeNotes """
