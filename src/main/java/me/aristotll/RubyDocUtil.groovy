@@ -1,7 +1,6 @@
 package me.aristotll
 
 import com.intellij.openapi.util.text.StringUtil
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.ResolveResult
 import com.intellij.util.ArrayUtil
@@ -30,8 +29,7 @@ import org.jetbrains.plugins.ruby.ruby.lang.psi.variables.fields.RClassVariable
 import org.jetbrains.plugins.ruby.ruby.lang.psi.variables.fields.RInstanceVariable
 
 @CompileStatic
-class NewRubyHelpUtil {
-    public static final String MULTIPLE_SYMBOLS_FOUND = '\0'
+class RubyDocUtil {
 
     static String getDocOfElement(@NotNull final RPsiElement targetElement) {
         StringUtil.notNullize(getDocOfElementInner(targetElement))
@@ -45,8 +43,7 @@ class NewRubyHelpUtil {
             return doc
         }
         if (targetElement instanceof RContainer) {
-            final RContainer container = (RContainer) targetElement
-            final Symbol containerSymbol = SymbolUtil.getSymbolByContainer(container)
+            final Symbol containerSymbol = SymbolUtil.getSymbolByContainer((RContainer) targetElement)
             if (containerSymbol != null) {
                 return createDocForSymbol(containerSymbol, targetElement)
             }
@@ -82,7 +79,6 @@ class NewRubyHelpUtil {
         if (ArrayUtil.isEmpty(results)) {
             return null
         }
-        final ArrayList<PsiElement> resolveElements = new ArrayList<PsiElement>()
         Symbol resolvedSymbol = null
         String docForSymbol = null
         for (final ResolveResult result : results) {
@@ -93,19 +89,13 @@ class NewRubyHelpUtil {
                         docForSymbol = createDocForSymbol(symbol, elementToFinderReference)
                         resolvedSymbol = symbol
                     } else if (resolvedSymbol != symbol) {
-                        docForSymbol = MULTIPLE_SYMBOLS_FOUND
+                        // multiple result
+                        docForSymbol = null
                     }
                 }
             }
-            final PsiElement element = result.element
-            if (element != null) {
-                resolveElements.add(element)
-            }
         }
-        if (docForSymbol != null && docForSymbol != MULTIPLE_SYMBOLS_FOUND) {
-            return docForSymbol
-        }
-        return null
+        return docForSymbol
     }
 
 
@@ -113,42 +103,8 @@ class NewRubyHelpUtil {
     static String createDocForSymbol(@NotNull final Symbol targetSymbol,
                                      @NotNull final RPsiElement targetElement) {
         appendTypeInfo(targetElement, targetSymbol)
-//        appendTypeInfoOrigin(targetElement, targetSymbol)
     }
 
-    static String appendTypeInfoOrigin(RPsiElement targetElement, Symbol targetSymbol) {
-        RType type = null
-        if (isVariableLike(targetElement)) {
-            type = RTypeUtil.getExpressionType(targetElement)
-        }
-        if (type == null) {
-            if (targetElement instanceof RMethod) {
-                type = getInferredMethodType((RMethod) targetElement)
-            }
-            if (type == null && targetElement == null && isVariableLike(targetElement)) {
-                type = RTypeUtil.getExpressionType(targetElement)
-            }
-        }
-        if (type == null && targetSymbol instanceof TypedSymbol) {
-            Context context = (targetElement != null) ? Context.getContext(targetElement) : null
-            context = ((context == null && targetElement != null)
-                    ? Context.getContext(targetElement)
-                    : context)
-            type = ((context != null) ? ((TypedSymbol) targetSymbol).getType(context) : null)
-        }
-        final String typeName
-        if (RTypeUtil.isNullOrEmpty(type)) {
-            typeName = 'Object'
-        } else {
-            typeName = createTypeText(type)
-        }
-        if (targetSymbol instanceof RMethodSymbol) {
-            return "# @return [$typeName] " // true doer
-        } else {
-
-            return "# @param [$typeName] " // true doer
-        }
-    }
 
     private static String appendTypeInfo(@NotNull final RPsiElement targetElement,
                                          @NotNull final Symbol targetSymbol) {

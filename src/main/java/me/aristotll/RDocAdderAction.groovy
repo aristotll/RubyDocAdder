@@ -37,10 +37,10 @@ class RDocAdderAction extends AnAction {
 
                 def name = it.name
                 it = it.children.first() as RPsiElement
-                def byElement = NewRubyHelpUtil.getDocOfElement(it)
+                def byElement = RubyDocUtil.getDocOfElement(it)
                 s += (" " * space) + byElement + " $name \n"
             }
-            s += NewRubyHelpUtil.getDocOfElement(method)
+            s += RubyDocUtil.getDocOfElement(method)
 
             def currentLine = caretModel.logicalPosition.line
             def document = editor.document
