@@ -34,6 +34,13 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile files('lib/live-plugin-0.5.7 beta.jar')
 
+    // form https://github.com/spockframework/spock-example/blob/master/build.gradle
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+    // optional dependencies for using Spock
+    testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
+    testRuntime "net.bytebuddy:byte-buddy:1.6.5"          // allows mocking of classes (in addition to interfaces)
+    testRuntime "org.objenesis:objenesis:2.5.1"    // allows mocking of classes without default constructor (together with CGLIB)
+
 }
 
 compileKotlin {
@@ -59,7 +66,7 @@ intellij {
     ]
     updateSinceUntilBuild = false
     instrumentCode = false
-    // local path and version should be used at same time
+    // local path and version should not be used at same time
     localPath = '/Applications/IntelliJ IDEA.app'
 }
 patchPluginXml {
@@ -80,3 +87,12 @@ jar {
 }
 // find the jar in distributions folder instead of libs...
 
+// https://github.com/ocroquette/gradle-extools/blob/master/build.gradle
+configurations.all {
+    resolutionStrategy {
+        // Workaround for version conflict because of Spock:
+        // groovy.lang.GroovyRuntimeException: Conflicting module versions. Module [groovy-all is loaded in version 2.4.12 and you are trying to load version 2.4.9
+        // See https://stackoverflow.com/questions/31099214/tomcat-conflicting-module-versions-module-groovy-all-is-loaded-in-version-2-3/33262366#33262366
+        force 'org.codehaus.groovy:groovy-all:2.4.12'
+    }
+}

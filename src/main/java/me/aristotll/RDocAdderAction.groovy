@@ -5,6 +5,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import groovy.transform.CompileStatic
+import org.jetbrains.annotations.NotNull
 import org.jetbrains.plugins.ruby.ruby.lang.psi.RPsiElement
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.RMethod
 
@@ -37,18 +38,8 @@ class RDocAdderAction extends AnAction {
         }
         PsiElement element = psiFile.findElementAt(offset)
         RMethod method = PsiTreeUtil.getParentOfType(element, RMethod)
-        if ((method != null)) {
-            def s = new StringBuilder()
-            def space = method.textOffset
-            method.argumentInfos
-            method.arguments.each {
-
-                def name = it.name
-                def byElement = RubyDocUtil.getDocOfElement(it.children.first() as RPsiElement)
-                s << (" " * space) + byElement + " $name \n"
-            }
-            s << RubyDocUtil.getDocOfElement(method)
-
+        if (method != null) {
+            def s = docFromMethod(method)
             def currentLine = caretModel.logicalPosition.line
             def document = editor.document
             def lineStartOffset = document.getLineStartOffset(currentLine)
@@ -61,6 +52,19 @@ class RDocAdderAction extends AnAction {
             }
         }
 
+    }
+
+    static StringBuilder docFromMethod(@NotNull RMethod method) {
+        StringBuilder doc = new StringBuilder()
+        def space = method.textOffset
+        method.arguments.each {
+
+            def name = it.name
+            def byElement = RubyDocUtil.getDocOfElement(it.children.first() as RPsiElement)
+            doc << (" " * space) + byElement + " $name \n"
+        }
+        doc << RubyDocUtil.getDocOfElement(method)
+        doc
     }
 }
 
