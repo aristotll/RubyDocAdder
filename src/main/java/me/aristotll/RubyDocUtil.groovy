@@ -19,6 +19,8 @@ import org.jetbrains.plugins.ruby.ruby.codeInsight.types.Context
 import org.jetbrains.plugins.ruby.ruby.codeInsight.types.RSymbolType
 import org.jetbrains.plugins.ruby.ruby.codeInsight.types.RType
 import org.jetbrains.plugins.ruby.ruby.codeInsight.types.RTypeUtil
+import org.jetbrains.plugins.ruby.ruby.codeInsight.types.RubyTypeProvider
+import org.jetbrains.plugins.ruby.ruby.codeInsight.types.TypeInferenceContext
 import org.jetbrains.plugins.ruby.ruby.lang.documentation.RubyHelpUtil
 import org.jetbrains.plugins.ruby.ruby.lang.psi.RPsiElement
 import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.RMethod
@@ -61,12 +63,28 @@ class RubyDocUtil {
         return type.presentableName
     }
 
-    @Nullable
+/*    @Nullable cannot find private methods because of obfuscation
     @CompileDynamic
     static RType getInferredMethodType(final RMethod method) {
         RubyHelpUtil.getInferredMethodType(method)
-    }
 
+    }*/
+
+    @Nullable
+    private static RType getInferredMethodType(RMethod method) {
+        Symbol symbol = SymbolUtil.getSymbolByContainer(method)
+        if (symbol == null) {
+            return null
+        } else {
+            RType type = RubyTypeProvider.createTypeBySymbolFromProviders(symbol, Context.INSTANCE)
+            if (type != null) {
+                return type
+            } else {
+                type = method.returnTypeFromComment
+                return type ?: TypeInferenceContext.getInstance(method.project).inferControlFlowBasedReturnType(method)
+            }
+        }
+    }
 
     @Nullable
     static String createDocUsingResolveToSymbol(final RPsiElement elementToFinderReference) {

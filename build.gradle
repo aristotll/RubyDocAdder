@@ -84,7 +84,7 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-        upgrade to 2018.1
+        rubymine bug fix
       """
 }
 // https://stackoverflow.com/a/33889971/4680436
